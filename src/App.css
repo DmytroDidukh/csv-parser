@@ -5,3 +5,17 @@
 .upload-input {
   display: none;
 }
+
+.table {
+  margin: 50px auto;
+  max-width: 1500px;
+
+}
+
+.table-head {
+  background: #9d9d9d;
+}
+
+.not-valid-cell {
+  background: #ff7474;
+}
