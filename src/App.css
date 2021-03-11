@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  max-width: 1500px;
+  margin: 50px auto;
 }
 
 .upload-input {
@@ -7,9 +9,7 @@
 }
 
 .table {
-  margin: 50px auto;
-  max-width: 1500px;
-
+  margin: 50px 0;
 }
 
 .table-head {
@@ -18,4 +18,9 @@
 
 .not-valid-cell {
   background: #ff7474;
+}
+
+.alert-error {
+  width: 500px;
+  margin: 50px auto;
 }
