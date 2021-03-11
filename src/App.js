@@ -1,23 +1,42 @@
-import logo from './logo.svg';
+import React, {Fragment, useState, useRef} from "react";
+import {Button} from "@material-ui/core";
+import { parse } from "papaparse";
+
 import './App.css';
 
 function App() {
+
+    const [contacts, setContacts] = useState([]);
+    const inputRef = useRef(null)
+
+  const handleChange = (e) => {
+    e.preventDefault()
+
+    Array.from(e.target.files)
+        .filter((file) => file.type === "application/vnd.ms-excel")
+        .forEach(async (file) => {
+          const text = await file.text();
+          const result = parse(text, { header: true });
+          console.log(result.data)
+          setContacts((prev) => [...prev, ...result.data]);
+        });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Fragment>
+        <input
+            className='upload-input'
+            onChange={handleChange}
+            type="file"
+            ref={inputRef}
+        />
+          <Button variant="contained"
+                  color="secondary"
+                  onClick={() => inputRef.current.click()}>
+              Upload
+          </Button>
+      </Fragment>
     </div>
   );
 }
