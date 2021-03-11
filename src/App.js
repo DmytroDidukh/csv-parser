@@ -9,6 +9,9 @@ import {
     TableCell,
     Table,
 } from "@material-ui/core";
+import isDate from 'date-fns/isDate'
+import toDate from 'date-fns/toDate'
+import isAfter from 'date-fns/isAfter'
 import {parse} from "papaparse";
 
 import './App.css';
@@ -107,6 +110,19 @@ function App() {
                 return value.split(',').map(value => value.trim().slice(0, 2).toUpperCase()).join(' | ')
             }
             case 'expirationDate': {
+                let date
+
+                if (value.includes('-')) {
+                    const [year, month, day] = value.split('-')
+                    date = new Date(year, month - 1, day)
+                } else if (value.includes('/')) {
+                    const [month, day, year] = value.split('/')
+                    date = new Date(year, month - 1, day)
+                }
+
+                return date instanceof Date && isDate(date) && isAfter(date, new Date())
+            }
+            case 'licenseNumber': {
                 return value.split(',').map(value => value.trim().slice(0, 2).toUpperCase()).join(' | ')
             }
             default: {
@@ -150,7 +166,7 @@ function App() {
 
                                         return (
                                             <TableCell key={value + key}
-                                                       className={!isValidOrResult ? 'not-valid-cell' : ''}
+                                                       className={isValidOrResult ? '' : 'not-valid-cell'}
                                                        align="center">
                                                 {(key === 'phone' || key === 'licenseStates') && isValidOrResult ? isValidOrResult : value}
                                             </TableCell>
