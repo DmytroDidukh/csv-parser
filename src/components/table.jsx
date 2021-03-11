@@ -42,7 +42,7 @@ const UsersTable = ({usersData, tableHeaders}) => {
                 return value >= 0 && value <= 1000000
             }
             case KEYS.hasChildren: {
-                const lowerCaseValue = camelCaseKey(value)
+                const lowerCaseValue = camelCaseKey(value.toString())
                 return lowerCaseValue === 'true' || lowerCaseValue === 'false' || lowerCaseValue === ''
             }
             case KEYS.licenseStates: {
