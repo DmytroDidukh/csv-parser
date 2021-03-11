@@ -3,7 +3,6 @@ import {Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/cor
 import isDate from "date-fns/isDate";
 import isAfter from "date-fns/isAfter";
 
-import camelCaseKey from "../utils/camelCaseKey";
 import {KEYS} from "../config";
 
 const UsersTable = ({usersData, tableHeaders}) => {
@@ -42,8 +41,7 @@ const UsersTable = ({usersData, tableHeaders}) => {
                 return value >= 0 && value <= 1000000
             }
             case KEYS.hasChildren: {
-                const lowerCaseValue = camelCaseKey(value.toString())
-                return lowerCaseValue === 'true' || lowerCaseValue === 'false' || lowerCaseValue === ''
+                return value === true || value === false || value === ''
             }
             case KEYS.licenseStates: {
                 return value.split(',').map(value => value.trim().slice(0, 2).toUpperCase()).join(' | ')
