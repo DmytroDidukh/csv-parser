@@ -3,9 +3,9 @@ import Button from "@material-ui/core/Button";
 import Alert from '@material-ui/lab/Alert';
 import {parse} from "papaparse";
 
+import UsersTableContainer from "./containers/user-table";
 import camelCaseKey from "./utils/camelCaseKey";
 import checkRequiredColumns from "./utils/checkRequiredColumns";
-import UsersTable from "./components/table";
 import './App.css';
 
 const App = () => {
@@ -27,7 +27,7 @@ const App = () => {
 
         setTableHeaders(['ID', ...headersData, 'Duplicated With',]);
 
-        if (file.type !== "application/vnd.ms-excel" || !checkRequiredColumns(keysForUserObject)) {
+        if (file.type !== "application/vnd.ms-excel" && file.type !== "text.csv" && !checkRequiredColumns(keysForUserObject)) {
             setIsValidFormatOrTable(false)
             return
         }
@@ -79,7 +79,7 @@ const App = () => {
             </Fragment>
             {
                 isValidFormatOrTable ?
-                    <UsersTable
+                    <UsersTableContainer
                         tableHeaders={tableHeaders}
                         usersData={usersData}
                     />
